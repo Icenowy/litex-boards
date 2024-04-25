@@ -64,6 +64,7 @@ class _CRG(LiteXModule):
         pll2.register_clkin(clk100, 100e6)
         pll2.create_clkout(self.cd_hdmi,   25e6,  margin=0)
         pll2.create_clkout(self.cd_hdmi5x, 125e6, margin=0)
+        platform.add_false_path_constraints(self.cd_sys.clk, pll2.clkin) # Ignore sys_clk to pll2.clkin path created by SoC's rst.
 
         self.idelayctrl = S7IDELAYCTRL(self.cd_idelay)
 
